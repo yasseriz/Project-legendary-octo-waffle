@@ -27,3 +27,21 @@ async def addSeries(seriesData: dict)->dict:
     series = await basic_collection.insert_one(seriesData)
     newSeries = await basic_collection.find_one({"_id": series.inserted_id})
     return series_helper(newSeries)
+
+async def deleteSeries(id: str):
+    series = await basic_collection.find_one({"_id": ObjectId(id)})
+    if series:
+        await basic_collection.delete_one({"_id": ObjectId(id)})
+        return True
+
+async def updateSeries(id: str, data:dict):
+    if len(data)<1:
+        return False
+    series = await basic_collection.find_one({"_id": ObjectId(id)})
+    if series:
+        update = await basic_collection.update_one(
+            {"_id": ObjectId(id)}, {"$set": data}    
+        )  
+        if update:
+            return True
+        return False
