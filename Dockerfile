@@ -1,6 +1,8 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
-COPY . .
+FROM python:3.7
+WORKDIR /app
 RUN pip install pipenv
-RUN pipenv install --system --deploy --ignore-pipfile
-EXPOSE 8000
-CMD [ "python", "main.py" ]
+COPY Pipfile Pipfile.lock /app/
+RUN pipenv install --system --dev
+COPY . .
+EXPOSE 8080
+CMD ["python", "/app/main.py"]
