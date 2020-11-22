@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Request
 from fastapi.encoders import jsonable_encoder
 
 from backend.database import (
@@ -17,12 +17,13 @@ from backend.models.schema import (
 
 router = APIRouter()
 
-
 @router.post("/", response_description="Series data added into database")
-async def addSeriesData(series: DataSchema = Body(...)):
-    series = jsonable_encoder(series)
+async def addSeriesData(request:Request):
+    form = await request.form()
+    series = jsonable_encoder(form)
     newSeries = await addSeries(series)
-    return ResponseModel(newSeries, "Series added successfully")
+    # ResponseModel(newSeries, "Series added successfully")
+    return newSeries
 
 
 @router.get("/", response_description="Series retrieved")

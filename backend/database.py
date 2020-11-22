@@ -1,6 +1,7 @@
 import motor.motor_asyncio
 from decouple import config
 from bson.objectid import ObjectId
+import json
 
 MONGO_DETAILS = config('mongoURI')
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
@@ -24,6 +25,8 @@ async def getSeries():
     return students
     
 async def addSeries(seriesData: dict)->dict:
+    # seriesData = json.loads(seriesData)
+    print(seriesData)
     series = await basic_collection.insert_one(seriesData)
     newSeries = await basic_collection.find_one({"_id": series.inserted_id})
     return series_helper(newSeries)

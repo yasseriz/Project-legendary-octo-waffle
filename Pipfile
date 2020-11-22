@@ -11,6 +11,8 @@ uvicorn = "*"
 motor = "*"
 dnspython = "*"
 python-decouple = "*"
+jinja2 = "*"
+python-multipart = "*"
 
 [requires]
 python_version = "3.7"
