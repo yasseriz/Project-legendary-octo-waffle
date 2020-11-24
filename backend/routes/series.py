@@ -1,5 +1,8 @@
 from fastapi import APIRouter, Body, Request
 from fastapi.encoders import jsonable_encoder
+from fastapi.templating import Jinja2Templates
+
+templates = Jinja2Templates(directory="./frontend/")
 
 from backend.database import (
     addSeries,
@@ -23,15 +26,15 @@ async def addSeriesData(request:Request):
     series = jsonable_encoder(form)
     newSeries = await addSeries(series)
     # ResponseModel(newSeries, "Series added successfully")
-    return newSeries
+    return templates.TemplateResponse("main.html", context={"request":request, "message":"Series added successfully"})
 
 
 @router.get("/", response_description="Series retrieved")
-async def getSeriesData():
+async def getSeriesData(request:Request):
     series = await getSeries()
     if series:
-        return ResponseModel(series, "Series data retrieved successfully")
-    return ResponseModel(series, "Empty list returned")
+        return templates.TemplateResponse("main.html", context={"request":request, "message":"Series data retrieved successfully", "series":series})
+    return templates.TemplateResponse("main.html", context={"request":request, "message":"Empty list returned"})
 
 
 @router.delete("/{id}", response_description="Series data deleted from database")

@@ -24,6 +24,28 @@
       </div>
 
     </div>
+    <!-- Table of Series -->
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Source</th>
+          <th scope="col">Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in series %}
+        <tr>
+          <th scope="row">1</th>
+          <td>{{row["name"]}}</td>
+          <td>{{row["source"]}}</td>
+          <td>{{row["link"]}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
   </div>
 
   <!-- div for new data input -->
@@ -37,7 +59,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/series/" method="post">
+        <form action="/" method="post">
           <div class="modal-body">
             <div class="form-group">
               <label for="name1">Name</label>
