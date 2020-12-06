@@ -23,10 +23,10 @@ router = APIRouter()
 @router.post("/", response_description="Series data added into database")
 async def addSeriesData(request:Request):
     form = await request.form()
-    series = jsonable_encoder(form)
-    newSeries = await addSeries(series)
-    # ResponseModel(newSeries, "Series added successfully")
-    return templates.TemplateResponse("main.html", context={"request":request, "message":"Series added successfully"})
+    seriesJSON = jsonable_encoder(form)
+    newSeries = await addSeries(seriesJSON)
+    series = await getSeries()
+    return templates.TemplateResponse("main.html", context={"request":request, "message":"Series added successfully", "series":series})
 
 
 @router.get("/", response_description="Series retrieved")
