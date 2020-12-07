@@ -37,10 +37,16 @@
       <tbody>
         {% for row in series %}
         <tr>
-          <th scope="row">1</th>
+          <!-- <th scope="row">1</th>
+           -->
+          <td>{{row["id"]}}</td>
           <td>{{row["name"]}}</td>
           <td>{{row["source"]}}</td>
           <td>{{row["link"]}}</td>
+          <td><button type="button" class="btn btn-info">Edit</button></td>
+          <form action="/series/{{row.id}}" method="post">
+            <td><button type="submit" class="btn btn-danger">Delete</button></td>
+          </form>
         </tr>
         {% endfor %}
       </tbody>
