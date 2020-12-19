@@ -53,18 +53,22 @@ async def deleteSeriesData(id: str, request: Request):
     return templates.TemplateResponse("main.html", context={"request": request, "message": "Series with id {0} doesn't exist".format(id), "series": series})
 
 
-@router.put("/{id}")
-async def updateSeriesData(id: str, req: updateDataSchema = Body(...)):
-    req = {k: v for k, v in req.dict().items() if v is not None}
-    updatedSeries = await updateSeries(id, req)
+@router.post("/update/{id}")
+# async def updateSeriesData(id: str, req: updateDataSchema = Body(...)):
+async def updateSeriesData(request:Request, id:str):
+    form = await request.form()
+    seriesJSON = jsonable_encoder(form)
+    updatedSeries = await updateSeries(id, seriesJSON)
+    series = await getSeries()
     if updatedSeries:
-        return ResponseModel(
-            "Series with ID: {} name update is successful".format(id),
-            "Series name updated successfully",
-        )
-
-    return ErrorResponseModel(
-        "An error occurred",
-        404,
-        "There was an error updating the series data.",
-    )
+        return templates.TemplateResponse("main.html", context={"request": request, "message": "Series with ID: {} updated".format(id), "series": series})
+        # return ResponseModel(
+        #     "Series with ID: {} name update is successful".format(id),
+        #     "Series name updated successfully",
+        # )
+    return templates.TemplateResponse("main.html", context={"request": request, "message": "Series with id {0} doesn't exist".format(id), "series": series})
+    # return ErrorResponseModel(
+    #     "An error occurred",
+    #     404,
+    #     "There was an error updating the series data.",
+    # )
