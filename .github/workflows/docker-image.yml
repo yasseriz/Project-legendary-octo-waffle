@@ -25,5 +25,5 @@ jobs:
           username: ${{ github.event.repository.owner.login }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: yasseriz/legendary-octo-waffle/crud-image
+          repository: yasseriz/legendary-octo-waffle
           tag_with_ref: true
