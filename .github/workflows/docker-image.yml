@@ -7,10 +7,23 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+  publish:
+    name: Publish to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check repo
+        uses: actions/checkout@v2
+      - name: Push to GitHub Packages
+        uses: actions/checkout@v2
+        with: 
+          username: ${{ github.event.repository.owner.login }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: yasseriz/legendary-octo-waffle/crud-image
+          tag_with_ref: true
