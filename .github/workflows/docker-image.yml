@@ -21,7 +21,7 @@ jobs:
       - name: Check repo
         uses: actions/checkout@v2
       - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with: 
           username: ${{ github.event.repository.owner.login }}
           password: ${{ secrets.GITHUB_TOKEN }}
