@@ -23,7 +23,7 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v2
         with: 
-          username: ${{ github.event.repository.owner.login }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: yasseriz/legendary-octo-waffle
