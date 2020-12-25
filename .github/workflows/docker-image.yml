@@ -16,11 +16,12 @@ jobs:
   publish:
     name: Publish to GitHub Packages
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: Check repo
         uses: actions/checkout@v2
       - name: Push to GitHub Packages
-        uses: actions/checkout@v2
+        uses: docker/build-push-action@v1
         with: 
           username: ${{ github.event.repository.owner.login }}
           password: ${{ secrets.GITHUB_TOKEN }}
