@@ -7,7 +7,7 @@ on:
       - v*
 env: 
   IMAGE_NAME: crud
-  AZURE_WEBAPP_NAME: crud-web-app # set this to your application's name
+  AZURE_WEBAPP_NAME: crud-webapp # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'         # set this to the path to your web app project, defaults to the repository root
   PYTHON_VERSION: '3.8'                  # set this to the python version to use
 
