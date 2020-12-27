@@ -1,9 +1,9 @@
 import motor.motor_asyncio
-from decouple import config
+import os
 from bson.objectid import ObjectId
 import json
 
-MONGO_DETAILS = config('mongoURI')
+MONGO_DETAILS = os.environ.get('mongoURI')
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 db = client.Series
 basic_collection = db.get_collection("basicDetails")
