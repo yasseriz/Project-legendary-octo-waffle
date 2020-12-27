@@ -19,6 +19,17 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v2
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Cache Docker Layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
@@ -55,6 +66,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: yasserizaheer/crud-webapp
           tag_with_ref: true
+          push: true
+          tags: user/app:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
           
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
