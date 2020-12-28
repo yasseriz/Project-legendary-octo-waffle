@@ -11,7 +11,6 @@ app.include_router(seriesRouter, tags=["Series"], prefix="/series")
 
 @app.get("/", tags=["Root"])
 async def read_root(request: Request):
-    message = "Welcome"
     # return templates.TemplateResponse("main.html",context={"request":request,"message":message})
     return RedirectResponse(url='/series')
 

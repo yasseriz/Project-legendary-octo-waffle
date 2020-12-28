@@ -1,7 +1,6 @@
-from typing import Optional, List
+from typing import Optional
 from pydantic import BaseModel, Field
-from fastapi import Query, Form
-from uuid import UUID, uuid4
+from fastapi import Form
 
 class DataSchema(BaseModel):
     name: str = Field(...)
@@ -18,7 +17,7 @@ class DataSchema(BaseModel):
         }
 
 class updateDataSchema(BaseModel):
-    name: Optional[str] 
+    name: Optional[str]
     source: Optional[str]
     link: Optional[str]
 

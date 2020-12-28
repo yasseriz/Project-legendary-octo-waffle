@@ -10,7 +10,7 @@ from backend.database import (
     deleteSeries,
     updateSeries,
 )
-from fastapi import APIRouter, Body, Request
+from fastapi import APIRouter, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.templating import Jinja2Templates
 
@@ -54,7 +54,6 @@ async def deleteSeriesData(id: str, request: Request):
 
 
 @router.post("/update/{id}")
-# async def updateSeriesData(id: str, req: updateDataSchema = Body(...)):
 async def updateSeriesData(request:Request, id:str):
     form = await request.form()
     seriesJSON = jsonable_encoder(form)
