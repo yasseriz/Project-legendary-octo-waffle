@@ -1,6 +1,5 @@
 from typing import Optional
 from pydantic import BaseModel, Field
-from fastapi import Form
 
 class DataSchema(BaseModel):
     name: str = Field(...)

@@ -22,7 +22,7 @@ async def getSeries():
     async for student in basic_collection.find():
         students.append(series_helper(student))
     return students
-    
+
 async def addSeries(seriesData: dict)->dict:
     series = await basic_collection.insert_one(seriesData)
     newSeries = await basic_collection.find_one({"_id": series.inserted_id})
